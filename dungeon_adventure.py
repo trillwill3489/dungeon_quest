@@ -18,6 +18,8 @@ def main():
         # TODO: Ask the user for their name using input()
         # TODO: Initialize a dictionary with keys: "name", "health", and "inventory"
         # TODO: Return the dictionary
+        
+        setup_player = {'name': input("Enter your name: "), 'health': 10, 'inventory': []}
 
 
     def create_treasures():
