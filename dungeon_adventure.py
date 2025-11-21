@@ -70,8 +70,8 @@ def main():
         # TODO: Print the room number and the 4 menu options listed above
         
         room_number = 1
-        print(f"You are in room number {room_number}\n")
-        print("What would you ike to do?\n1. Search for treasure\n2. Move to next room\n3. Check health and inventory\n4. Quit the game")
+        print(f"You are in room number {room_number}")
+        print("What would you ike to do?\n1. Search for treasure\n2. Move to next room\n3. Check health and inventory\n4. Quit the game\n")
 
     def search_room(player, treasures):
         """
@@ -100,8 +100,8 @@ def main():
         if outcome == "treasure":
             
             x = random.choice(list(treasures.items()))
-            player["inventory"].update(x)
-            print(player["inventory"])
+            player["inventory"].append(x)
+            print(f"Player found {x}!") 
             
         elif outcome == "trap":
             
@@ -127,7 +127,8 @@ def main():
         # TODO: If the inventory list is not empty, print items joined by commas
         # TODO: Otherwise print “You have no items yet.”
         
-        print(player)
+        x = player["health"]
+        print(f"Player health: {x}\n")
 
 
     def end_game(player, treasures):
@@ -175,18 +176,23 @@ def main():
         display_options()
         player_choice = int(input("Selection: "))
         
-        if player_choice == 1:
-            search_room(player, treasures)
+        while room_number < 6:
+            if player_choice == 1:
+                search_room(player, treasures)
+                display_options()
+                player_choice = int(input("Selection: "))
+                
+            elif player_choice == 2:
+                room_number += 1
             
-        elif player_choice == 2:
-            room_number += 1
-            
-        elif player_choice == 3:
-            check_status()
+            elif player_choice == 3:
+                check_status(player)
+                display_options()
+                player_choice = int(input("Selection: "))
         
-        elif player_choice == 4:
+            elif player_choice == 4:
+                pass
             pass
-        pass
 
     # -----------------------------------------------------
     # GAME ENTRY POINT (Leave this section unchanged)
