@@ -20,6 +20,7 @@ def main():
         # TODO: Return the dictionary
         
         setup_player = {'name': input("Enter your name: "), 'health': 10, 'inventory': []}
+        print(setup_player)
 
 
     def create_treasures():
@@ -40,9 +41,16 @@ def main():
         """
         # TODO: Create a dictionary of treasure names and integer values
         # TODO: Return the dictionary
+        treasures = {
+                "gold": 10,
+                "bone": 1,
+                "necklace": 25
+            }
+        print(treasures)
+                    
 
 
-    def display_options(room_number):
+    def display_options():
         """
         Displays available options for the player in the current room.
 
@@ -58,7 +66,10 @@ def main():
             4. Quit the game
         """
         # TODO: Print the room number and the 4 menu options listed above
-
+        
+        room_number = 1
+        print(f"You are in room number {room_number}\n")
+        print("What would you ike to do?\n1.Search for treasure\n2. Move to next room\n3. Check health and inventory\n4. Quit the game")
 
     def search_room(player, treasures):
         """
@@ -147,6 +158,7 @@ def main():
     # -----------------------------------------------------
     player = setup_player()
     treasures = create_treasures()
+    display_options()
     run_game_loop(player, treasures)
 
 if __name__ == "__main__":
