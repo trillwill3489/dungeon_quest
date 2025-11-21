@@ -52,7 +52,7 @@ def main():
         return treasures       
 
 
-    def display_options():
+    def display_options(room_number):
         """
         Displays available options for the player in the current room.
 
@@ -69,7 +69,6 @@ def main():
         """
         # TODO: Print the room number and the 4 menu options listed above
         
-        room_number = 1
         print(f"You are in room number {room_number}")
         print("What would you ike to do?\n1. Search for treasure\n2. Move to next room\n3. Check health and inventory\n4. Quit the game\n")
 
@@ -101,7 +100,7 @@ def main():
             
             x = random.choice(list(treasures.items()))
             player["inventory"].append(x)
-            print(f"Player found {x}!") 
+            print(f"Player found {x}!")
             
         elif outcome == "trap":
             
@@ -128,7 +127,9 @@ def main():
         # TODO: Otherwise print “You have no items yet.”
         
         x = player["health"]
-        print(f"Player health: {x}\n")
+        print(f"Player health: {x}")
+        y = player["inventory"]
+        print(f"so far you have collected: {y}")
 
 
     def end_game(player, treasures):
@@ -146,6 +147,11 @@ def main():
         # TODO: Print final health, items, and total value
         # TODO: End with a message like "Game Over! Thanks for playing."
         
+        score = 0
+        inv = player["inventory"]
+        print(inv)
+        
+        print(f"Congrats, {player["name"]}! You made it through the dungeon! Lets look at your final stats! Score: {score}")
         pass
 
 
@@ -173,30 +179,41 @@ def main():
         # TODO: Call end_game() after all rooms are explored
         
         room_number = 1
-        display_options()
+        display_options(room_number)
         player_choice = int(input("Selection: "))
         
         while room_number < 6:
-            if player_choice == 1:
+            if player["health"] <= 0:
+                    print("you die...")
+                    break
+            elif player_choice == 1:
                 search_room(player, treasures)
-                display_options()
-                player_choice = int(input("Selection: "))
+                display_options(room_number)
+                player_choice = int(input("Selection: \n"))
                 
             elif player_choice == 2:
                 room_number += 1
+                if room_number < 6:
+                    print(f"Moving onto room {room_number}!")
+                    display_options(room_number)
+                    player_choice = int(input("Selection: \n"))
+                else:
+                    end_game(player, treasures)
             
             elif player_choice == 3:
                 check_status(player)
-                display_options()
-                player_choice = int(input("Selection: "))
+                display_options(room_number)
+                player_choice = int(input("Selection: \n"))
         
             elif player_choice == 4:
-                pass
+                room_number = 6
+                end_game(player, treasures)
             pass
 
     # -----------------------------------------------------
     # GAME ENTRY POINT (Leave this section unchanged)
     # -----------------------------------------------------
+    
     player = setup_player()
     treasures = create_treasures()
     run_game_loop(player, treasures)
