@@ -21,7 +21,6 @@ def main():
         
         global player
         player = {"name": input("Enter your name: "), "health": 10, "inventory": []}
-        print(player)
         return player
 
 
@@ -149,7 +148,8 @@ def main():
         
         score = 0
         inv = player["inventory"]
-        print(inv)
+        for x in inv:
+            score += x[1]
         
         print(f"Congrats, {player["name"]}! You made it through the dungeon! Lets look at your final stats! Score: {score}")
         pass
