@@ -99,12 +99,12 @@ def main():
             
             x = random.choice(list(treasures.items()))
             player["inventory"].append(x)
-            print(f"Player found {x}!")
+            print(f"Player found a {x[0]}!")
             
         elif outcome == "trap":
             
             player["health"] -= 2
-            print(player["health"])
+            print(f"OW! you fell for a trap! Your health is down to: {player["health"]}")
 
 
     def check_status(player):
