@@ -151,8 +151,9 @@ def main():
         for x in inv:
             score += x[1]
         
-        print(f"Congrats, {player["name"]}! You made it through the dungeon! Lets look at your final stats! Score: {score}")
-        pass
+        print(f"Congrats, {player["name"]}! You made it through the dungeon! Lets look at your final stats!") 
+        print(f"Score: {score}")
+        print(f"You made it out with a health of {player["health"]}")
 
 
     def run_game_loop(player, treasures):
@@ -183,13 +184,16 @@ def main():
         player_choice = int(input("Selection: "))
         
         while room_number < 6:
-            if player["health"] <= 0:
-                    print("you die...")
-                    break
-            elif player_choice == 1:
+            if player_choice == 1:
                 search_room(player, treasures)
-                display_options(room_number)
-                player_choice = int(input("Selection: \n"))
+                
+                if player["health"] > 0:
+                    display_options(room_number)
+                    player_choice = int(input("Selection: \n"))
+                    
+                else:
+                    print("You died...")
+                    break
                 
             elif player_choice == 2:
                 room_number += 1
@@ -208,7 +212,9 @@ def main():
             elif player_choice == 4:
                 room_number = 6
                 end_game(player, treasures)
-            pass
+            else:
+                print("Invalid entry! Please try again...")
+                display_options(room_number)
 
     # -----------------------------------------------------
     # GAME ENTRY POINT (Leave this section unchanged)
